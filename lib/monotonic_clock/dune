@@ -7,7 +7,10 @@
        clock_windows_stubs.c
        clock_mach.ml
        clock_mach_stubs.c)
- (action (run %{ocaml} %{select} --system %{ocaml-config:system} -o monotonic_clock)))
+ (action (progn
+          (system "ocamlc -config")
+          (echo %{ocaml-config:system})
+          (run %{ocaml} %{select} --system %{ocaml-config:system} -o monotonic_clock))))
 
 (library
  (name monotonic_clock)
